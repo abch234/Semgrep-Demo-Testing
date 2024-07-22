@@ -32,7 +32,8 @@ public class GreetingController {
   @GetMapping("/test1")
   public String test1(@RequestParam(value = "name", defaultValue = "World") String name, HttpServletResponse response) {
     // ruleid: jdbctemplate-sqli
-    jdbcTemplate.execute("INSERT INTO customers(first_name, last_name) VALUES ("+ name +", foobar)");
+    String sql = "INSERT INTO customers(first_name, last_name) VALUES (?, 'foobar')";
+    jdbcTemplate.update(sql, name);
     return "ok";
   }
 
